@@ -10,4 +10,4 @@ jobs:
     uses: LZR-Tech/lzr-github-ops/.github/workflows/ci.yml@main
     with:
       node-version: '20'
-      package-manager: 'npm'
+      package-manager: 'pnpm'

@@ -1,6 +1,6 @@
 # LZR API Template — Instruções para IA
 
-> **Engineering Handbook v2.2** — Toda alteração de regra segue `governance.md` (versionar → propagar → enforcement)
+> **Engineering Handbook v2.3** — Toda alteração de regra segue `governance.md` (versionar → propagar → enforcement)
 > Este arquivo é lido automaticamente pelo Claude Code antes de qualquer tarefa.
 
 ## Idioma
@@ -11,11 +11,21 @@
 
 | Documento | URL | O que define |
 |-----------|-----|-------------|
-| **Engineering Handbook v2.2** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança, governança |
+| **Engineering Handbook v2.3** | https://code.lzrtechnologies.com | Arquitetura, padrões de código, CI/CD, segurança, governança |
 
 Em caso de dúvida entre o que está no código e o que está nesses documentos, **o documento vence**.
 
 ---
+
+## Tooling LZR (v2.3)
+
+- **Package manager**: `pnpm` (nunca `npm` ou `yarn`) — o lockfile é `pnpm-lock.yaml`
+- **Node**: `>=20.0.0`
+- **Git hooks ativos** via Husky:
+  - `pre-commit`: `lint-staged` (ESLint + Prettier nos arquivos staged)
+  - `commit-msg`: `commitlint` (Conventional Commits)
+  - `pre-push`: `pnpm typecheck && pnpm test`
+- **Gate zero-warnings** antes de qualquer commit/PR: `pnpm typecheck && pnpm lint && pnpm test && pnpm build` precisam terminar com **0 erros e 0 warnings**
 
 ## Stack
 
@@ -78,7 +88,7 @@ src/
 
 ---
 
-## Governança de Regras (v2.2)
+## Governança de Regras (v2.3)
 
 **REGRA PERPÉTUA**: Toda criação/edição/remoção de regra DEVE ser refletida em TODAS as fontes (7 passos).
 

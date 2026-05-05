@@ -2,7 +2,7 @@
 
 Template oficial para APIs em **TypeScript/Node** da LZR Technologies.
 
-Baseado no [Engineering Handbook](https://code.lzrtechnologies.com).
+Baseado no [Engineering Handbook v2.3](https://code.lzrtechnologies.com).
 
 ## Stack
 
@@ -12,26 +12,31 @@ Baseado no [Engineering Handbook](https://code.lzrtechnologies.com).
 | **Fastify** | Framework HTTP |
 | **Zod** | Validação de schemas |
 | **Pino** | Logging estruturado (JSON) |
-| **Vitest** | Testes unitários e integração |
+| **Vitest** | Testes unitários e integração (cobertura ≥80%) |
 | **ESLint + Prettier** | Linting e formatação (@lzr/configs) |
-| **CommitLint + Husky** | Conventional commits |
+| **CommitLint + Husky + lint-staged** | Conventional commits + hooks ativos |
+| **pnpm** | Package manager (padrão LZR) |
 
 ## Quick Start
 
 ### 1. Criar projeto a partir deste template
 
-Clique em **"Use this template"** no GitHub, ou:
+Recomendado: use `/new-project <nome> api` no Claude Code para automatizar todos os passos abaixo.
+
+Manualmente:
 
 ```bash
-gh repo create meu-projeto --template LZR-Tech/lzr-template-api-node --public --clone
+gh repo create meu-projeto --template LZR-Tech/lzr-template-api-node --private --clone
 cd meu-projeto
 ```
 
 ### 2. Instalar dependências
 
 ```bash
-npm install
+pnpm install
 ```
+
+> **Pré-requisitos**: Node.js >= 20 e pnpm >= 9. Instale o pnpm com `corepack enable` (recomendado) ou `npm i -g pnpm`.
 
 ### 3. Configurar variáveis de ambiente
 
@@ -43,8 +48,8 @@ cp .env.example .env.local
 ### 4. Rodar em desenvolvimento
 
 ```bash
-npm run dev
-# 🚀 Server running on http://0.0.0.0:3000
+pnpm dev
+# Server running on http://0.0.0.0:3000
 ```
 
 ### 5. Verificar
@@ -104,20 +109,36 @@ src/features/companies/
 | **Feature-based** | Código organizado por domínio |
 | **Barrel exports** | `index.ts` em cada feature |
 
+## Git Hooks (Husky)
+
+Os hooks vêm ativos por padrão neste template:
+
+| Hook | O que roda |
+|------|-----------|
+| `pre-commit` | `lint-staged` (ESLint + Prettier nos arquivos staged) |
+| `commit-msg` | `commitlint` (Conventional Commits) |
+| `pre-push` | `pnpm typecheck && pnpm test` |
+
+Em primeira instalação, `pnpm install` já executa `prepare: husky` automaticamente.
+
 ## Scripts
 
 | Script | O que faz |
 |--------|-----------|
-| `npm run dev` | Dev server com hot reload |
-| `npm run build` | Compila TypeScript |
-| `npm start` | Roda build em produção |
-| `npm run typecheck` | Verifica tipos |
-| `npm run lint` | Roda ESLint |
-| `npm run test` | Roda testes |
-| `npm run test:coverage` | Testes com cobertura (>80%) |
+| `pnpm dev` | Dev server com hot reload |
+| `pnpm build` | Compila TypeScript |
+| `pnpm start` | Roda build em produção |
+| `pnpm typecheck` | Verifica tipos |
+| `pnpm lint` | Roda ESLint |
+| `pnpm lint:fix` | ESLint com auto-fix |
+| `pnpm format` | Prettier auto-format |
+| `pnpm format:check` | Prettier dry-run |
+| `pnpm test` | Roda testes |
+| `pnpm test:watch` | Vitest em watch mode |
+| `pnpm test:coverage` | Testes com cobertura (≥80%) |
 
 ## Referência
 
-- [LZR Engineering Handbook](https://code.lzrtechnologies.com)
+- [LZR Engineering Handbook v2.3](https://code.lzrtechnologies.com)
 - [Fastify](https://fastify.dev/)
 - [Zod](https://zod.dev/)
